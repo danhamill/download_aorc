@@ -1,0 +1,6 @@
+aorc_output/
+config.yml
+*.part
+.Rhistory
+.Rproj.user/
+MCD/

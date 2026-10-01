@@ -1,0 +1,46 @@
+# Polygon area of interest. A shapefile (.shp) or any vector format supported
+# by sf/GDAL may be used. Relative paths are resolved from your working directory.
+shapefile: "data/aoi.shp"
+
+# Inclusive hourly interval in UTC.
+start_datetime: "1979-02-01 00:00:00"
+end_datetime: "1990-12-31 23:00:00"
+ 
+
+# Select only the variables required to reduce network transfer and output size.
+variables:
+  - APCP_surface
+  # - TMP_2maboveground
+  # - SPFH_2maboveground
+  # - PRES_surface
+  # - DLWRF_surface
+  # - DSWRF_surface
+  # - UGRD_10maboveground
+  # - VGRD_10maboveground
+
+output_directory: "MCD"
+output_prefix: "aorc"
+
+# Optional outward AOI buffer before clipping.
+buffer_km: 0
+
+# Stop when any requested year/hour is unavailable. Set true to download only
+# the available intersection and document that fact in the manifest.
+partial_ok: true
+
+# Existing monthly files are skipped unless overwrite is true.
+overwrite: false
+compression_level: 4
+
+# Cache successful bucket, metadata, and coordinate checks between restarts.
+# Historical years are reused for 7 days; the newest (possibly incomplete)
+# annual store is refreshed every 6 hours. Set refresh_metadata_cache: true
+# for one run to force all remote checks.
+metadata_cache: true
+# metadata_cache_path: "MCD/.aorc_metadata_cache.rds"
+metadata_cache_ttl_hours: 168
+latest_year_cache_ttl_hours: 6
+refresh_metadata_cache: false
+
+# Set true to validate dates, variables, AOI, and remote metadata without data download.
+check_only: false
